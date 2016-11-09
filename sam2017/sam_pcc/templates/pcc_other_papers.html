@@ -1,0 +1,49 @@
+{% extends "pcc_base.html" %}
+{% block content %}
+{% load staticfiles %}
+
+{% if user.is_authenticated  %}
+
+    {% if user.profile.is_pcc %}
+
+        <h2> Submissions </h2>
+        <br/>
+        {% if paper %}
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Submision ID</th>
+                    <th>Topic</th>
+                    <th>Paper</th>
+                    <th>Submitter</th>
+                    <th>Authors</th>
+                    <th>Assign</th>
+                  </tr>
+                </thead>
+                 <tbody>
+
+                    {% for i in paper %}
+
+                        <tr>
+                            <td>{{i.submission_id.id}}</td>
+                            <td>{{i.submission_id.topic}} {{ instance.last_name }}</td>
+                            <td><a href ="{{ MEDIA_URL }}{{i.paper.url}}">{{ i.paper.name }}</a></td>
+                            <td>{{i.submission_id.submitter}}</td>
+                            <td>{{i.submission_id.author_list}} </td>
+                            <td>
+                               <a href="#">PCM NAMES</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+             <h4> Currently there are no un-assigned papers. </h4>
+        {% endif %}
+
+
+     {% endif %}
+
+{% endif %}
+
+{% endblock %}
